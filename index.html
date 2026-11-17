@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>울산 HD FC 팬 미니게임</title>
+<meta name="description" content="울산 HD FC 선수들이 나오는 무료 웹 미니게임 모음. 설치도 가입도 없이 링크 하나로 바로 합니다.">
+<meta name="theme-color" content="#001A4D">
+<meta property="og:type" content="website">
+<meta property="og:title" content="울산 HD FC 팬 미니게임">
+<meta property="og:description" content="1 VS 1 축구, 얼굴 × 등번호 메모리. 설치 없이 바로 하는 무료 웹 미니게임.">
+<meta property="og:image" content="https://robinkim0221.github.io/img/og.jpg">
+<meta property="og:url" content="https://robinkim0221.github.io/">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" href="fonts/barlow-condensed-700-latin.woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
+<style>
+/* Barlow Condensed 700: 숫자·영문(중계 자막 같은 굵고 좁은 글씨). SIL OFL, fonts/OFL-BarlowCondensed.txt */
+@font-face { font-family: 'Barlow Condensed'; font-weight: 700; font-display: swap; src: url(fonts/barlow-condensed-700-latin.woff2) format('woff2'); }
+
+:root {
+  --navy: #001A4D;      /* 바탕 */
+  --deep: #0A2A66;      /* 카드 */
+  --blue: #004098;      /* 울산 블루 */
+  --gold: #FFC72C;      /* 호랑이 금색 */
+  --white: #F5F8FF;
+  --muted: #9DB3DD;
+  --grass: #2E9B4A;
+  --grass2: #279043;
+  --kr: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --num: 'Barlow Condensed', 'Arial Narrow', var(--kr);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--navy); color: var(--white); font-family: var(--kr); font-size: 16px; line-height: 1.6; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+/* ---------- 경기장: 관중석 좌석 모자이크(흰 좌석으로 ULSAN) + LED 띠 + 잔디 ---------- */
+.stadium { position: relative; background: linear-gradient(180deg, #0B1E45 0, #06306F 100%); }
+.stands { display: block; width: 100%; height: auto; }
+.seat { fill: var(--c); }
+.word .seat { fill: #2C5BA8; animation: light .5s ease-out forwards; animation-delay: var(--d); }
+@keyframes light { to { fill: var(--white); } }
+@media (prefers-reduced-motion: reduce) { .word .seat { animation: none; fill: var(--white); } }
+.led { height: 34px; background: linear-gradient(180deg, #0B3F9A, #062F78); border-top: 2px solid rgba(255,255,255,.28); border-bottom: 2px solid rgba(0,0,0,.25);
+  overflow: hidden; white-space: nowrap; display: flex; align-items: center; gap: 22px; padding-left: 12px;
+  font-family: var(--num); font-size: 19px; letter-spacing: .02em; color: #FFFFFF; }
+.led span:nth-child(even) { font-family: var(--kr); font-weight: 800; font-size: 16px; }
+.led i { width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); flex: none; }
+.grass { height: 22px; background: repeating-linear-gradient(90deg, var(--grass) 0 64px, var(--grass2) 64px 128px); border-bottom: 3px solid rgba(255,255,255,.85); }
+
+/* ---------- 머리말 ---------- */
+.wrap { width: min(1040px, 100% - 32px); margin: 0 auto; }
+.intro { padding: 30px 0 8px; display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; }
+.intro img { width: 52px; height: auto; display: block; }
+h1 { margin: 0; font-weight: 900; font-size: clamp(30px, 6.4vw, 52px); line-height: 1.12; letter-spacing: -.025em; }
+.lead { margin: 12px 0 0; color: var(--muted); font-size: clamp(15.5px, 2.2vw, 18px); max-width: 34em; }
+
+/* ---------- 게임 카드: 경기 일정표처럼 ---------- */
+.games { display: grid; gap: 22px; padding: 26px 0 8px; }
+@media (min-width: 760px) { .games { grid-template-columns: 1fr 1fr; gap: 26px; } }
+.game { background: var(--deep); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,8,30,.45); }
+.shot { display: block; aspect-ratio: 16 / 9; width: 100%; height: auto; object-fit: cover; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); background: #0B3F9A; }
+.body { padding: 14px 20px 22px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+h2 { margin: 0; font-size: 25px; font-weight: 850; letter-spacing: -.02em; line-height: 1.25; }
+.game p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.stats { display: flex; gap: 22px; margin: 2px 0; padding: 10px 0; border-top: 1px solid rgba(157,179,221,.22); border-bottom: 1px solid rgba(157,179,221,.22); }
+.stats div { display: flex; flex-direction: column; line-height: 1.1; }
+.stats b { font-family: var(--num); font-size: 34px; font-weight: 700; color: var(--gold); }
+.stats small { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.modes { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.modes li { font-size: 13.5px; font-weight: 700; padding: 4px 11px; border-radius: 999px; background: rgba(0,64,152,.55); border: 1px solid rgba(157,179,221,.35); }
+.play { margin-top: auto; display: flex; align-items: center; justify-content: center; height: 54px; background: var(--gold); color: var(--navy);
+  font-weight: 900; font-size: 18px; text-decoration: none; clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%); }
+.play:hover { background: #FFD45C; }
+.play:active { transform: translateY(1px); }
+
+/* ---------- 안내 ---------- */
+.about { display: grid; gap: 26px; padding: 34px 0 10px; }
+@media (min-width: 760px) { .about { grid-template-columns: 1fr 1fr; gap: 40px; } }
+h3 { margin: 0 0 8px; font-size: 19px; font-weight: 850; }
+.about p { margin: 0; color: var(--muted); max-width: 32em; }
+.tips { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.tips li { color: var(--muted); padding-left: 16px; border-left: 3px solid var(--gold); }
+.tips strong { color: var(--white); font-weight: 800; }
+
+footer { margin-top: 36px; padding: 22px 0 calc(28px + env(safe-area-inset-bottom)); border-top: 1px solid rgba(157,179,221,.18); color: var(--muted); font-size: 13.5px; }
+footer p { margin: 0 0 4px; }
+</style>
+</head>
+<body>
+<header class="stadium">
+  <svg class="stands" id="stands" role="img" aria-label="관중석 좌석으로 새긴 ULSAN 글자"></svg>
+  <div class="led" aria-hidden="true"><span>ULSAN HD FC</span><i></i><span>울산 HD FC</span><i></i><span>ULSAN HD FC</span><i></i><span>울산 HD FC</span><i></i><span>ULSAN HD FC</span><i></i><span>울산 HD FC</span><i></i><span>ULSAN HD FC</span><i></i><span>울산 HD FC</span></div>
+  <div class="grass" aria-hidden="true"></div>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <img src="img/emblem.png" alt="울산 HD FC 엠블럼" width="52" height="68">
+    <div>
+      <h1>울산 HD FC 팬 미니게임</h1>
+    </div>
+  </section>
+  <p class="lead">울산 선수들이 나오는 무료 웹 미니게임이에요. 앱 설치도 회원가입도 없이, 링크를 누르면 바로 시작합니다.</p>
+
+  <section class="games" aria-label="게임 목록">
+    <article class="game soccer">
+      <img class="shot" src="img/game-soccer.jpg" alt="1 VS 1 축구 경기 화면: 불꽃을 두른 조현택과 이진현" width="960" height="540">
+      <div class="body">
+        <h2>1 VS 1 축구</h2>
+        <p>선수 한 명을 골라 60초 동안 헤드 사커로 붙어요. 선수마다 필살기가 하나씩 있어요.</p>
+        <div class="stats">
+          <div><b>12</b><small>선수</small></div>
+          <div><b>60초</b><small>한 판</small></div>
+          <div><b>5</b><small>난이도</small></div>
+        </div>
+        <ul class="modes" aria-label="모드"><li>혼자 하기</li><li>둘이서 한 키보드</li><li>친구와 온라인</li></ul>
+        <a class="play" href="https://robinkim0221.github.io/ulsan-head-soccer/">경기 시작</a>
+      </div>
+    </article>
+
+    <article class="game memory">
+      <img class="shot" src="img/game-memory.jpg" alt="얼굴 × 등번호 메모리 화면: 선수 얼굴 카드와 등번호 카드" width="960" height="540">
+      <div class="body">
+        <h2>얼굴 × 등번호 메모리</h2>
+        <p>선수 얼굴과 등번호 카드를 잠깐 외운 뒤, 제한 시간 안에 짝을 맞춰요.</p>
+        <div class="stats">
+          <div><b>18</b><small>카드</small></div>
+          <div><b>5</b><small>난이도</small></div>
+          <div><b>3</b><small>세트 맞추기</small></div>
+        </div>
+        <ul class="modes" aria-label="난이도"><li>유스</li><li>2군</li><li>1군</li><li>에이스</li><li>레전드</li></ul>
+        <a class="play" href="https://robinkim0221.github.io/ulsan-hd-memory/">시작하기</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="about">
+    <div>
+      <h3>이런 곳이에요</h3>
+      <p>울산 HD FC 선수들이 나오는 미니게임을 한곳에 모았어요. 폰은 가로로 돌리고, 노트북은 키보드로 하면 됩니다. 새 게임이 나오면 여기에 추가돼요.</p>
+    </div>
+    <div>
+      <h3>처음이라면</h3>
+      <ul class="tips">
+        <li><strong>친구랑 붙고 싶다면</strong> 1 VS 1 축구에서 온라인을 누르고 초대 링크를 보내세요.</li>
+        <li><strong>혼자 기록에 도전하려면</strong> 메모리 레전드 단계를 깨 보세요.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>선수 사진 출처: 울산 HD FC 공식 홈페이지 (uhdfc.com)</p>
+    <p>무단 복제·배포 금지</p>
+    <p>© 2026 울산 HD FC 팬 미니게임</p>
+  </div>
+</footer>
+
+<script>
+// 관중석 좌석 모자이크: 게임 경기장과 같은 5×7 글자. 글자의 한 점은 좌석 2×2, 글자 사이는 좌석 2칸. 화면 폭에 맞춰 좌석 수를 정한다.
+(() => {
+  const GLYPHS = {
+    U: ['X...X', 'X...X', 'X...X', 'X...X', 'X...X', 'X...X', '.XXX.'],
+    L: ['X....', 'X....', 'X....', 'X....', 'X....', 'X....', 'XXXXX'],
+    S: ['.XXX.', 'X...X', 'X....', '.XXX.', '....X', 'X...X', '.XXX.'],
+    A: ['.XXX.', 'X...X', 'X...X', 'XXXXX', 'X...X', 'X...X', 'X...X'],
+    N: ['X...X', 'XX..X', 'X.X.X', 'X.X.X', 'X..XX', 'X...X', 'X...X'],
+  };
+  const WORD = 'ULSAN', BLOCK = 12, WORD_COLS = WORD.length * BLOCK - 2, WORD_ROWS = 14, PAD_ROWS = 4;
+  const BLUES = ['#0A3F94', '#0B48A6', '#0D52B8', '#08398A', '#0B4CAE'];
+  const svg = document.getElementById('stands');
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;   // 늘 같은 무늬
+  function draw() {
+    const w = svg.clientWidth || innerWidth;
+    const pitch = Math.max(6, Math.min(13, Math.floor(w / (WORD_COLS + 8))));   // 좌석 간격(px): 글자 양옆에 좌석 4칸 이상
+    const cols = Math.ceil(w / pitch), rows = WORD_ROWS + PAD_ROWS * 2, c0 = Math.floor((cols - WORD_COLS) / 2), size = pitch - 1.5;
+    seed = 7;
+    let base = '', word = '';
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const wc = c - c0, wr = r - PAD_ROWS, x = c * pitch, y = r * pitch;
+      const inBox = wc >= 0 && wc < WORD_COLS && wr >= 0 && wr < WORD_ROWS;
+      const i = Math.floor(wc / BLOCK), cc = wc % BLOCK;
+      const on = inBox && cc < 10 && GLYPHS[WORD[i]][wr >> 1][cc >> 1] === 'X';
+      const rect = (color, extra = '') => `<rect class="seat" x="${x}" y="${y}" width="${size}" height="${size}" rx="${size * .22}" style="--c:${color}${extra}"/>`;
+      if (on) word += rect('#F5F8FF', `;--d:${(wc / WORD_COLS * .55 + rnd() * .12).toFixed(2)}s`);
+      else { const v = rnd(); base += rect(v < .045 && !inBox ? '#FFC72C' : BLUES[Math.floor(rnd() * BLUES.length)]); }
+    }
+    svg.setAttribute('viewBox', `0 0 ${cols * pitch} ${rows * pitch}`);
+    svg.innerHTML = base + `<g class="word">${word}</g>`;
+  }
+  draw();
+  let last = innerWidth;
+  addEventListener('resize', () => { if (Math.abs(innerWidth - last) > 40) { last = innerWidth; draw(); } });
+})();
+</script>
+</body>
+</html>
